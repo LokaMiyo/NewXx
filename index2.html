@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个性化圣诞贺卡</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff7eb3, #ff758c, #f7e9d7);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff7eb3, 0 0 30px #ff7eb3;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ff758c;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎄 圣诞快乐 🎄</h1>
+    <!-- 爱心按钮 -->
+    <div class="heart" onclick="toggleMusic()">❤️</div>
+    <!-- 个性化留言 -->
+    <div class="message" id="message">🎅 祝你节日快乐，心想事成！ 🎅</div>
+    <!-- 背景音乐 -->
+        <audio id="bg-music" loop>
+    <source src="music2/wsl.mp3" type="audio/mpeg">
+    您的浏览器不支持音乐播放。
+    </audio>
+
+    <script>
+        let isPlaying = false; // 状态变量，控制音乐播放或暂停
+
+        function toggleMusic() {
+            const message = document.getElementById('message');
+            const music = document.getElementById('bg-music');
+            
+            if (isPlaying) {
+                music.pause(); // 暂停音乐
+                message.style.display = 'none'; // 隐藏消息
+            } else {
+                music.play().catch(error => {
+                    console.log("音乐播放失败:", error);
+                });
+                message.style.display = 'block'; // 显示消息
+                message.textContent = "🎁 亲爱的朋友，祝你圣诞快乐，愿你不负韶华，岁岁平安！ 🎄";
+            }
+            
+            isPlaying = !isPlaying; // 切换播放状态
+        }
+    </script>
+
+    <style>
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 创建雪花
+        function createSnowflake() {
+            let snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
+            snowflake.textContent = "❄";  // 雪花符号
+
+            // 随机位置
+            snowflake.style.left = Math.random() * 100 + "%";
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";  // 动画持续时间
+            snowflake.style.fontSize = Math.random() * 10 + 10 + "px";  // 随机雪花大小
+            snowflake.style.animationDelay = Math.random() * 3 + "s";  // 动画延迟时间
+
+            // 添加雪花到页面
+            document.body.appendChild(snowflake);
+
+            // 移除雪花（完成后）
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);  // 5秒后删除雪花
+        }
+
+        // 每隔200ms生成一个雪花
+        setInterval(createSnowflake, 200);
+    });
+</script>
+</html>
