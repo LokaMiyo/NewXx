@@ -73,12 +73,19 @@
        
         function showMessage() {
             const message = document.getElementById('message');
-            message.style.display = 'block';
-            message.textContent = "🎁 亲爱的朋友，祝你圣诞快乐，愿你事事顺心，岁岁平安！ 🎄"; // 你可以根据条件更改这里的文字
-            const music = document.getElementById('bg-music');
-            music.play().catch(error => {
-                console.log("音乐播放失败:", error);
-            });
+           const music = document.getElementById('bg-music')；
+
+            if (isPlaying){
+music.pause()；// 暂停音乐
+message.style.display ='none'；// 隐藏消息
+｝else ｛
+music.play().catch(error =>｛
+console.log("音乐播放失败："，error)；
+｝)；
+    message.style.display = 'block';//显示消息
+    message.textContent = "🎁 亲爱的朋友，祝你圣诞快乐，愿你事事顺心，岁岁平安！ 🎄"; // 你可以根据条件更改这里的文字
+                ｝
+            isPlaying = !isPlaying;// 切换播放状态
         }
     </script>
 
